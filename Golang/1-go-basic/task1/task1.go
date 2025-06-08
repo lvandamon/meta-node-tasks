@@ -8,11 +8,9 @@ import "fmt"
 // 相同的数异或为0: n ^ n => 0
 func singleNumber(nums []int) int {
 	var single int
-
 	for _, num := range nums {
 		single ^= num
 	}
-
 	return single
 }
 

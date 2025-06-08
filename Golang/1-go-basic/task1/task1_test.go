@@ -17,7 +17,7 @@ func TestSingleNumber1(t *testing.T) {
 }
 
 func TestSingleNumber2(t *testing.T) {
-	t.Run("random", func(t *testing.T) {
+	t.Run("3,1,1,2,2", func(t *testing.T) {
 		if singleNumber([]int{3, 1, 1, 2, 2}) != 3 {
 			t.Fatal("fail")
 		}
