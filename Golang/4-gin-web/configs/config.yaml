@@ -1,0 +1,13 @@
+# 基础配置
+app:
+  port: 8080
+database:
+  username: root
+  password: 123456
+  host: 127.0.0.1
+  port: 3306
+  dbname: blog
+log:
+  format: json
+  level: debug
+  report_caller: false
