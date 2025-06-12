@@ -15,26 +15,28 @@
 │   │   │   ├── config.go
 │   │   │   └── ...
 │   │   ├── /initializer            # 初始化，如db、log、redis等
-│   │   │   ├── db.go
+│   │   │   ├── db_init.go
 │   │   │   └── ...
 │   │   ├── loader.go               # 加载工具、提供启动服务
 │   │   └── ...
 │   ├── /controllers                # 包含控制器逻辑，处理请求并返回响应
-│   │   ├── user.controller.go
+│   │   ├── user_controller.go
 │   │   └── ...
-│   ├── /middleware                 # 存放中间件代码，用于在请求处理流程中的特定阶段执行代码
-│   │   ├── error.go
+│   ├── /middlewares                # 存放中间件代码，用于在请求处理流程中的特定阶段执行代码
+│   │   ├── error_mid.go
 │   │   └── ...
 │   ├── /models                     # 定义应用的数据模型，通常与数据库表结构对应
-│   │   ├── user.model.go
+│   │   ├── user.go
 │   │   └── ...  
 │   ├── /repositories               # 实现数据访问逻辑，与数据库进行交互
-│   │   ├── user.repository.go
+│   │   ├── user_repository.go
 │   │   └── ...  
 │   ├── /services                   # 实现业务逻辑，调用 repositories 中的方法来处理业务需求
 │   │   ├── user_service.go
 │   │   └── ...
 │   └── /utils                      # 包含通用的工具函数，这些函数可以被多个包所共享
+├── /logs                           # 日志
+├── /migrations                     # 管理数据库变更
 ├── /pkg                            # 存放第三方库，如第三方中间件、工具库等
 ├── /scripts                        # 存放各种脚本，如项目部署脚本、测试脚本等
 ├── /tests                          # 存放测试代码，包括单元测试、集成测试等

@@ -5,7 +5,7 @@ import (
 	"gin-web/internal/api"
 	"gin-web/internal/app/config"
 	"gin-web/internal/app/initializer"
-	"gin-web/internal/middleware"
+	"gin-web/internal/middlewares"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
@@ -25,9 +25,9 @@ func Start() {
 	}
 
 	r := gin.New()
-	r.Use(middleware.Logger())
-	r.Use(middleware.Recovery())
-	r.Use(middleware.ErrorHandler())
+	r.Use(middlewares.Logger())
+	//r.Use(middlewares.Recovery())
+	r.Use(middlewares.ErrorHandler())
 	api.SetupRoutes(r, initializer.DB)
 
 	err = r.Run(fmt.Sprintf(":%d", config.Conf.App.Port))

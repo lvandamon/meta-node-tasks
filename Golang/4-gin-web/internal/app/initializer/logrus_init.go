@@ -42,7 +42,7 @@ func InitializeLogger() error {
 	// 设置打印调用信息
 	log.SetReportCaller(config.Conf.Log.ReportCaller)
 
-	logDir := "../logs"
+	logDir := "./logs"
 	err := os.MkdirAll(logDir, 0755)
 	if err != nil {
 		log.Error("创建日志目录失败: %v", err)

@@ -23,5 +23,24 @@ func InitializeMySQL() error {
 	}
 
 	fmt.Println("数据库连接成功：", db)
+
+	DB = db
+	// 自动迁移模型
+	//err = db.AutoMigrate(&models.User{}, &models.Post{}, &models.Comment{})
+	//if err != nil {
+	//	return err
+	//}
+
+	//var users []*models.User
+	//db.Debug().Table(models.User{}.TableName()).Find(&users)
+	//fmt.Println("<UNK>", users)
+
 	return nil
+}
+
+func SetDB(db *gorm.DB) {
+	DB = db
+}
+func GetDB() *gorm.DB {
+	return DB
 }

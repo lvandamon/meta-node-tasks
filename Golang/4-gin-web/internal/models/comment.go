@@ -11,6 +11,10 @@ type Comment struct {
 	Post    Post
 }
 
+type CommentCreateRequest struct {
+	Content string `json:"content" validate:"required"`
+}
+
 // TableName 方法用于返回表名
 func (c Comment) TableName() string {
 	return "comments"

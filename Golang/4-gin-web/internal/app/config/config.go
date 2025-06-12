@@ -9,6 +9,7 @@ type Config struct {
 	App      AppConfig      `yaml:"app" mapstructure:"app"`
 	Database DatabaseConfig `yaml:"database" mapstructure:"database"`
 	Log      LogConfig      `yaml:"log" mapstructure:"log"`
+	Jwt      JwtConfig      `yaml:"jwt" mapstructure:"jwt"`
 }
 
 type AppConfig struct {
@@ -29,6 +30,10 @@ type LogConfig struct {
 	Format       string `yaml:"format" mapstructure:"format"`
 	Level        string `yaml:"level" mapstructure:"level"`
 	ReportCaller bool   `yaml:"reportCaller" mapstructure:"reportCaller"`
+}
+
+type JwtConfig struct {
+	Secret string `yaml:"secret" mapstructure:"secret"`
 }
 
 var Conf *Config

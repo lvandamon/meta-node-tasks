@@ -11,3 +11,5 @@ log:
   format: json
   level: debug
   report_caller: false
+jwt:
+  api_secret: secret123

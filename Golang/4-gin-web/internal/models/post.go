@@ -10,6 +10,11 @@ type Post struct {
 	User    User
 }
 
+type PostCreateRequest struct {
+	Title   string `json:"name" validate:"required"`
+	Content string `json:"content" validate:"required"`
+}
+
 // TableName 方法用于返回表名
 func (p Post) TableName() string {
 	return "posts"
