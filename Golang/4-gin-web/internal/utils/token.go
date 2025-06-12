@@ -1,4 +1,4 @@
-package token
+package utils
 
 import (
 	"gin-web/internal/app/models"

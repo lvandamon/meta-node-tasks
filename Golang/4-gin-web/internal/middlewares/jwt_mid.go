@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"gin-web/internal/app/models"
 	"gin-web/internal/loader/initializer"
-	"gin-web/internal/utils/token"
+	"gin-web/internal/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -28,7 +28,7 @@ func JwtAuthMiddleware() gin.HandlerFunc {
 		// 提取 parseToken 的有效部分 ("Bearer "共占7位)
 		tokenString = tokenString[7:]
 
-		parseToken, claims, err := token.ParseToken(tokenString)
+		parseToken, claims, err := utils.ParseToken(tokenString)
 		if err != nil || !parseToken.Valid {
 			c.JSON(http.StatusUnauthorized, gin.H{"code": 401, "message": "权限不足"})
 			c.Abort()

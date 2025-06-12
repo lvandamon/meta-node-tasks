@@ -3,7 +3,7 @@ package services
 import (
 	"gin-web/internal/app/models"
 	"gin-web/internal/app/repositories"
-	"gin-web/internal/utils/token"
+	"gin-web/internal/utils"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/net/html"
 	"gorm.io/gorm"
@@ -20,7 +20,7 @@ func NewUserService(db *gorm.DB) *UserService {
 
 func (us *UserService) Register(user *models.User) (*models.User, error) {
 	// 加密密码
-	hashedPassword, err := token.HashPassword(user.Password)
+	hashedPassword, err := utils.HashPassword(user.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -44,12 +44,12 @@ func (us *UserService) Login(user *models.User) (string, error) {
 		return "", err
 	}
 
-	err = token.VerifyPassword(u.Password, user.Password)
+	err = utils.VerifyPassword(u.Password, user.Password)
 	if err != nil && err == bcrypt.ErrMismatchedHashAndPassword {
 		return "", err
 	}
 
-	tokenStr, err := token.GenerateToken(&u)
+	tokenStr, err := utils.GenerateToken(&u)
 	if err != nil {
 		return "", err
 	}
