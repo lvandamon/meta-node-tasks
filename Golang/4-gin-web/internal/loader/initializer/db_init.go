@@ -2,7 +2,7 @@ package initializer
 
 import (
 	"fmt"
-	"gin-web/internal/app/config"
+	"gin-web/internal/loader/config"
 	_ "github.com/go-sql-driver/mysql"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

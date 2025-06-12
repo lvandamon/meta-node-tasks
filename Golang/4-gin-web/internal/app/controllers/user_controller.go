@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"gin-web/internal/models"
-	"gin-web/internal/services"
+	"gin-web/internal/app/models"
+	"gin-web/internal/app/services"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

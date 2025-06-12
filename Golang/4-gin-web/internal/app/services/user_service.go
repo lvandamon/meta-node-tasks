@@ -1,8 +1,8 @@
 package services
 
 import (
-	"gin-web/internal/models"
-	"gin-web/internal/repositories"
+	"gin-web/internal/app/models"
+	"gin-web/internal/app/repositories"
 	"gin-web/internal/utils/token"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/net/html"

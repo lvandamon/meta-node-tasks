@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"gin-web/internal/models"
+	"gin-web/internal/app/models"
 	"gorm.io/gorm"
 )
 

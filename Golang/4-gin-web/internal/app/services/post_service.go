@@ -1,8 +1,8 @@
 package services
 
 import (
-	"gin-web/internal/models"
-	"gin-web/internal/repositories"
+	"gin-web/internal/app/models"
+	"gin-web/internal/app/repositories"
 	"gorm.io/gorm"
 )
 

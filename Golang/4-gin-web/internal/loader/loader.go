@@ -1,10 +1,10 @@
-package app
+package loader
 
 import (
 	"fmt"
 	"gin-web/internal/api"
-	"gin-web/internal/app/config"
-	"gin-web/internal/app/initializer"
+	"gin-web/internal/loader/config"
+	initializer2 "gin-web/internal/loader/initializer"
 	"gin-web/internal/middlewares"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -28,7 +28,7 @@ func Start() {
 	r.Use(middlewares.Logger())
 	//r.Use(middlewares.Recovery())
 	r.Use(middlewares.ErrorHandler())
-	api.SetupRoutes(r, initializer.DB)
+	api.SetupRoutes(r, initializer2.DB)
 
 	err = r.Run(fmt.Sprintf(":%d", config.Conf.App.Port))
 	if err != nil {
@@ -39,11 +39,11 @@ func Start() {
 
 // InitializeAll 初始化所有模块
 func InitializeAll() error {
-	err := initializer.InitializeLogger()
+	err := initializer2.InitializeLogger()
 	if err != nil {
 		return fmt.Errorf("日志初始化错误: %v", err)
 	}
-	err = initializer.InitializeMySQL()
+	err = initializer2.InitializeMySQL()
 	if err != nil {
 		return fmt.Errorf("MySQL初始化错误: %v", err)
 	}

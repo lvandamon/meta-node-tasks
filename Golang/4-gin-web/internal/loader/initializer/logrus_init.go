@@ -1,7 +1,7 @@
 package initializer
 
 import (
-	"gin-web/internal/app/config"
+	"gin-web/internal/loader/config"
 	"github.com/lestrrat-go/file-rotatelogs"
 	log "github.com/sirupsen/logrus"
 	"io"

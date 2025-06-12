@@ -1,7 +1,9 @@
 package main
 
-import "gin-web/internal/app"
+import (
+	"gin-web/internal/loader"
+)
 
 func main() {
-	app.Start()
+	loader.Start()
 }
