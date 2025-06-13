@@ -7,7 +7,7 @@ import (
 )
 
 func Recovery() gin.HandlerFunc {
-	return func(c *gin.Context) {
+	return func(ctx *gin.Context) {
 		defer func() {
 			if r := recover(); r != nil {
 				// 记录 Panic
@@ -21,15 +21,15 @@ func Recovery() gin.HandlerFunc {
 				)
 
 				// 返回统一的错误响应
-				c.JSON(err.HTTPStatus, gin.H{
+				ctx.JSON(err.HTTPStatus, gin.H{
 					"code":    err.Code,
 					"message": err.Message,
 				})
 
 				// 中断请求
-				c.Abort()
+				ctx.Abort()
 			}
 		}()
-		c.Next()
+		ctx.Next()
 	}
 }

@@ -10,9 +10,17 @@ type Post struct {
 	User    User
 }
 
-type PostCreateRequest struct {
-	Title   string `json:"name" validate:"required"`
+type PostRequestVo struct {
+	ID      uint   `json:"id"`
+	Title   string `json:"title" validate:"required"`
 	Content string `json:"content" validate:"required"`
+}
+
+type PostResponseVo struct {
+	ID      uint   `json:"id"`
+	Title   string `json:"title"`
+	Content string `json:"content"`
+	UserID  uint   `json:"user_id"`
 }
 
 // TableName 方法用于返回表名

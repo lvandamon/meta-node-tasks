@@ -20,6 +20,12 @@ type UserLoginRequest struct {
 	Password string `json:"password" validate:"required"`
 }
 
+type UserResponseVo struct {
+	ID       uint   `json:"id"`
+	Username string `json:"username"`
+	Email    string `json:"email"`
+}
+
 // TableName 方法用于返回表名
 func (u User) TableName() string {
 	return "users"

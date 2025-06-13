@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"fmt"
 	"gin-web/internal/app/models"
 	"gin-web/internal/loader/initializer"
 	"gin-web/internal/utils"
@@ -11,17 +10,15 @@ import (
 )
 
 func JwtAuthMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
+	return func(ctx *gin.Context) {
 
 		// 获取 authorization header
-		tokenString := c.GetHeader("Authorization")
-
-		fmt.Println("===>", tokenString)
+		tokenString := ctx.GetHeader("Authorization")
 
 		// validate parseToken formate
 		if tokenString == "" || !strings.HasPrefix(tokenString, "Bearer ") {
-			c.JSON(http.StatusUnauthorized, gin.H{"code": 401, "message": "权限不足"})
-			c.Abort()
+			ctx.JSON(http.StatusUnauthorized, gin.H{"code": 401, "message": "权限不足"})
+			ctx.Abort()
 			return
 		}
 
@@ -30,8 +27,8 @@ func JwtAuthMiddleware() gin.HandlerFunc {
 
 		parseToken, claims, err := utils.ParseToken(tokenString)
 		if err != nil || !parseToken.Valid {
-			c.JSON(http.StatusUnauthorized, gin.H{"code": 401, "message": "权限不足"})
-			c.Abort()
+			ctx.JSON(http.StatusUnauthorized, gin.H{"code": 401, "message": "权限不足"})
+			ctx.Abort()
 			return
 		}
 
@@ -43,13 +40,13 @@ func JwtAuthMiddleware() gin.HandlerFunc {
 
 		DB.Where("id = ?", UserId).Where("email = ?", UserEmail).First(&user)
 		if user.ID == 0 || user.Email == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"code": 401, "message": "权限不足"})
-			c.Abort()
+			ctx.JSON(http.StatusUnauthorized, gin.H{"code": 401, "message": "权限不足"})
+			ctx.Abort()
 			return
 		}
 
 		// 用户存在，将user 信息写入上下文，方便读取
-		c.Set("user", user)
-		c.Next()
+		ctx.Set("user", user)
+		ctx.Next()
 	}
 }

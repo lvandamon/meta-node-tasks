@@ -34,22 +34,21 @@ func (us *UserService) Register(user *models.User) (*models.User, error) {
 
 func (us *UserService) Login(user *models.User) (string, error) {
 	var (
-		err error
-		u   = models.User{
-			Email: user.Email,
-		}
+		err        error
+		storedUser *models.User
 	)
 
-	if _, err := us.userRepo.GetUserByEmail(&u); err != nil {
+	storedUser, err = us.userRepo.GetUserByEmail(user.Email)
+	if err != nil {
 		return "", err
 	}
 
-	err = utils.VerifyPassword(u.Password, user.Password)
+	err = utils.VerifyPassword(storedUser.Password, user.Password)
 	if err != nil && err == bcrypt.ErrMismatchedHashAndPassword {
 		return "", err
 	}
 
-	tokenStr, err := utils.GenerateToken(&u)
+	tokenStr, err := utils.GenerateToken(storedUser)
 	if err != nil {
 		return "", err
 	}

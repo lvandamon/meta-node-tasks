@@ -11,8 +11,16 @@ type Comment struct {
 	Post    Post
 }
 
-type CommentCreateRequest struct {
+type CommentRequestVo struct {
+	PostID  uint   `json:"post_id" validate:"required"`
 	Content string `json:"content" validate:"required"`
+}
+
+type CommentResponseVo struct {
+	ID      uint   `json:"id"`
+	Content string `json:"content"`
+	PostID  uint   `json:"post_id"`
+	UserID  uint   `json:"user_id"`
 }
 
 // TableName 方法用于返回表名

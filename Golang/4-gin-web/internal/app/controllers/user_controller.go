@@ -15,20 +15,11 @@ func NewUserController(UserService *services.UserService) *UserController {
 	return &UserController{userService: UserService}
 }
 
-func (uc *UserController) GetUsers(c *gin.Context) {
-	users, err := uc.userService.GetUsers()
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch users"})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"users": users})
-}
-
-func (uc *UserController) Register(c *gin.Context) {
+func (uc *UserController) Register(ctx *gin.Context) {
 
 	var input models.UserRegisterRequest
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if err := ctx.ShouldBindJSON(&input); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -40,17 +31,17 @@ func (uc *UserController) Register(c *gin.Context) {
 
 	_, err := uc.userService.Register(&u)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{"message": "User registered successfully"})
+	ctx.JSON(http.StatusCreated, gin.H{"message": "User registered successfully"})
 }
 
-func (uc *UserController) Login(c *gin.Context) {
+func (uc *UserController) Login(ctx *gin.Context) {
 	var input models.UserLoginRequest
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if err := ctx.ShouldBindJSON(&input); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -60,9 +51,28 @@ func (uc *UserController) Login(c *gin.Context) {
 
 	tokenStr, err := uc.userService.Login(&user)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "email or password is incorrect."})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "email or password is incorrect."})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": tokenStr})
+	ctx.JSON(http.StatusOK, gin.H{"token": tokenStr})
+}
+
+func (uc *UserController) GetUsers(ctx *gin.Context) {
+	users, err := uc.userService.GetUsers()
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch users"})
+		return
+	}
+
+	var res []models.UserResponseVo
+	for _, user := range users {
+		res = append(res, models.UserResponseVo{
+			ID:       user.ID,
+			Username: user.Username,
+			Email:    user.Email,
+		})
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"users": res})
 }

@@ -1,10 +1,13 @@
 package utils
 
 import (
+	"fmt"
 	"gin-web/internal/app/models"
 	"gin-web/internal/loader/config"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
+	"strconv"
 	"time"
 )
 
@@ -15,7 +18,6 @@ type Claims struct {
 }
 
 func GenerateToken(user *models.User) (string, error) {
-
 	// token 有效期
 	expireTime := time.Now().Add(7 * 24 * time.Hour).Unix()
 	claims := Claims{
@@ -56,4 +58,18 @@ func HashPassword(password string) (string, error) {
 
 func VerifyPassword(hashedPassword, password string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+}
+
+func GetCurrentUserFromContext(ctx *gin.Context) (models.User, bool) {
+	user, ok := ctx.Value("user").(models.User)
+	return user, ok
+}
+
+func ConvertPostId2UInt(postId string) (uint, error) {
+	id, err := strconv.Atoi(postId)
+	if err != nil {
+		fmt.Println("转换错误:", err)
+		return 0, err
+	}
+	return uint(id), err
 }

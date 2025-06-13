@@ -15,19 +15,20 @@ func NewUserRepository(db *gorm.DB) *UserRepository {
 
 // CreateUser 注册
 func (r *UserRepository) CreateUser(user *models.User) (*models.User, error) {
-	err := r.db.Debug().Table(models.User{}.TableName()).Create(user).Error
+	err := r.db.Debug().Table(models.User{}.TableName()).Create(&user).Error
 	return user, err
 }
 
 // GetUserByEmail 根据 Email 获取用户信息
-func (r *UserRepository) GetUserByEmail(user *models.User) (*models.User, error) {
-	err := r.db.Where("email = ?", user.Email).First(user).Error
+func (r *UserRepository) GetUserByEmail(email string) (*models.User, error) {
+	var user *models.User
+	err := r.db.Where("email = ?", email).First(&user).Error
 	return user, err
 }
 
 // GetUsers 获取所有用户
 func (r *UserRepository) GetUsers() ([]*models.User, error) {
 	var users []*models.User
-	err := r.db.Debug().Table(models.User{}.TableName()).Find(users).Error
+	err := r.db.Debug().Table(models.User{}.TableName()).Find(&users).Error
 	return users, err
 }
