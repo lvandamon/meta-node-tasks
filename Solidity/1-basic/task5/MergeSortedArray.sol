@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
+// 将两个有序数组合并为一个新的有序数组。
 contract ArrayMerger {
     // 合并两个有序数组并返回新数组
     function mergeSortedArrays(uint[] memory arr1, uint[] memory arr2) public pure returns (uint[] memory) {

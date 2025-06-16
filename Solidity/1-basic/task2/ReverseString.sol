@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
+// 反转一个字符串。输入 "abcde"，输出 "edcba"
 contract ReverseString {
     function reverse(string memory input) public pure returns (string memory) {
         //输入字符串

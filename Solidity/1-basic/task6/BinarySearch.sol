@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8;
 
-
+// 在一个有序数组中查找目标值。
 contract BinarySearch {
     // 二分查找函数
     function binarySearch(uint[] memory arr, uint target) public pure returns (bool) {
